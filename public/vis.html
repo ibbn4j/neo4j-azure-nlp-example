@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Neovis.js</title>
+        <style type="text/css">
+            html, body {
+                font: 16pt arial;
+            }
+    
+            #viz {
+                width: 900px;
+                height: 700px;
+                border: 1px solid lightgray;
+                font: 22pt arial;
+            }
+        </style>
+    </head>
+    <body onload="draw()">
+        <a href="javascript:history.back();">back</a>
+        <div id="viz"></div>
+    </body>  
+
+    
+  <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+
+  <script type="text/javascript">
+
+    var neo4j_uri = 'bolt://localhost'
+    var neo4j_user = 'neo4j';
+    var neo4j_password = '<neo4j-password>';
+
+    var viz;
+    
+
+    function draw() {
+        var config = {
+            container_id: "viz",
+            server_url: neo4j_uri,
+            server_user: neo4j_user,
+            server_password: neo4j_password,
+            labels: {
+                 "Category": {
+                     "caption": "Name"
+                 },
+                 "Document": {
+                     "caption": "Url"
+                 },
+                 "Entity": {
+                     "caption": "Name",
+                 },
+             },
+            relationships: {
+                "HAS_ENTITY": {
+                    "thickness": "weight",
+                    "caption": false
+                }
+            },
+            initial_cypher: "MATCH (c:Category)<-[r1:HAS_CATEGORY]-(e:Entity)<-[r2:HAS_ENTITY]-(d:Document) RETURN *" // cypher
+            // initial_cypher: "MATCH (e:Entity)<-[r2:HAS_ENTITY]-(d:Document) RETURN *" // apoc
+        };
+
+        viz = new NeoVis.default(config);
+        viz.render();
+    }
+</script>
+
+</html>
+

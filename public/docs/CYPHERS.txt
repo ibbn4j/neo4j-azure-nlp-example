@@ -1,0 +1,25 @@
+MERGE (d:Document {Url: 'XXX', Body: 'We Help the World Make Sense of Data
+  Neo4j enables organizations to unlock the business value of connections, influences and
+  relationships in data: through new applications that adapt to changing business needs, and by
+  enabling existing applications to scale with the business. Headquartered in San Mateo,
+  California, Neo4j has offices in Sweden, Germany, Singapore, and the UK.
+  Our vision is to help the world make sense of data.'
+});
+
+:param apiKey => ("XXX");
+:param apiUrl => ("XXX");
+
+
+MATCH (a:Document)
+WITH collect(a) AS articles
+CALL apoc.nlp.azure.entities.graph(articles, {
+  key: $apiKey,
+  url: $apiUrl,
+  nodeProperty: "Body",
+  scoreCutoff: 0.7,
+  writeRelationshipType: "HAS_ENTITY",
+  writeRelationshipProperty: "azureEntityScore",
+  write: true
+})
+YIELD graph AS g
+RETURN g;
