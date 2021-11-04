@@ -30,7 +30,6 @@
     var neo4j_password = '<neo4j-password>';
 
     var viz;
-    
 
     function draw() {
         var config = {
@@ -60,7 +59,12 @@
         };
 
         viz = new NeoVis.default(config);
+        viz.registerOnEvent("error", (err)=>showError(err));
         viz.render();
+    }
+
+    function showError(err) {
+        document.getElementById("viz").innerHTML = err.error_msg;
     }
 </script>
 

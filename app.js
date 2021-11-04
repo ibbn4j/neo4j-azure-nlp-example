@@ -1,20 +1,21 @@
 "use strict";
+require('dotenv').config()
 
 // ----------------------------------------------------------------------------
 // PARAMETERS
 // ----------------------------------------------------------------------------
 
-const neo4j_uri = 'bolt://localhost'
-const neo4j_user = 'neo4j';
-const neo4j_password = '<neo4j-password>';
+const neo4j_uri = process.env.NEO4J_URI;
+const neo4j_user = process.env.NEO4J_USER;
+const neo4j_password = process.env.NEO4J_PASSWORD;
 
-const azure_ocr_key = '<your-azure_ocr_key>';
-const azure_ocr_endpoint = '<your-azure_ocr_endpoint>';
+const azure_ocr_key = process.env.AZURE_OCR_KEY;
+const azure_ocr_endpoint = process.env.AZURE_OCR_ENDPOINT;
 
-const azure_ai_key = '<your-azure_ai_key>';
-const azure_ai_endpoint = '<your-azure_ai_endpoint>';
+const azure_ai_key = process.env.AZURE_AI_KEY;
+const azure_ai_endpoint = process.env.AZURE_AI_ENDPOINT;
 
-const STORE_MODE = 'cypher'; // apoc | cypher
+const STORE_MODE = process.env.STORE_MODE; // apoc | cypher
 
 // ----------------------------------------------------------------------------
 // INPUT
